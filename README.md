@@ -1,5 +1,5 @@
 # OOP-IS
  Tasks that I have done during my OOP - course.
- Week 3 - Writing and Reading data from Binary and Text files
- Week 4 - Constructor and Destructor functions.
- Week 5 - get and set functions
+ - **Тема 03:** Writing and Reading -> Binary Files.
+- **Тема 04** Class methods. Constructors and Destructor. Encapsulation. get and set functions.
+- **Тема 05**: Linking. Copy constructor and = -> operator.
