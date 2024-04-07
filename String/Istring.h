@@ -1,3 +1,5 @@
+//my implementation of string class in c++
+
 #include <fstream>
 
 
