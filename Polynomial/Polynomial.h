@@ -31,7 +31,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Polynomial& polyn);
 };
 
-
+Polynomial determineHigherDegreePolynom(const Polynomial& lhs,const Polynomial& rhs);
 Polynomial operator+(const Polynomial& lhs, const Polynomial& rhs);
 Polynomial operator-(const Polynomial& lhs, const Polynomial& rhs);
 Polynomial operator*(const Polynomial& lhs, const Polynomial& rhs);
