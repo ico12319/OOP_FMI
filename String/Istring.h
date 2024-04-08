@@ -1,7 +1,7 @@
 //  Hristo Partenov,
 //  Information Systems,
 //  Sofia University
-//  FN -> ...
+//  FN -> 0MI0700218
 //  Custom implementation of string class in c++
 
 #pragma once 
@@ -35,6 +35,8 @@ public:
         
     void reverse();
     bool isPalindrome() const;
+    bool contains(const char* str) const;
+
 
     // Operators:
     const char& operator[](int index) const;
@@ -49,5 +51,6 @@ public:
 };
 
 Istring operator+(const Istring& lhs, const Istring& rhs);
+Istring operator-(const Istring& lhs,const Istring& rhs);
 bool operator==(const Istring& lhs,const Istring& rhs);
 bool operator!=(const Istring& lhs,const Istring& rhs);
