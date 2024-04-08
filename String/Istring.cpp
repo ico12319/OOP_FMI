@@ -2,8 +2,6 @@
 #include "Istring.h"
 #include <cstring>
 
-#pragma warning (disable : 4996)
-
 size_t Istring::getLength() const{
     return this->length;
 }
@@ -52,7 +50,7 @@ Istring::~Istring(){
 }
 
 void Istring::setData(const char* data){
-    if (!data) {
+    if (!data || this->data == data) {
 	    delete[] data;
 	    this->data = new char[1];
 	    this->data[0] = '\0';
@@ -179,3 +177,70 @@ Istring& Istring::operator()(int replicateCount){
     
     return *this;
 }
+
+bool Istring::contains(const char* str) const{ //method for checking whether a certain string is a substring of our string.
+    
+    int index = 0;
+    
+    size_t len = std::strlen(str);
+    int count = 0;
+    
+    for(int i = 0;i<length;i++){
+        if(data[i] == str[index]){
+            index++;
+            count++;
+            if(count == len){
+                return true;
+            }
+        }
+        else{
+            index = 0;
+            count = 0;
+        }
+}
+
+void Istring::clear(){
+    data[0] = '\0';
+    return false;
+}
+
+
+
+
+Istring& Istring::operator-=(const Istring& other){ //method that removes the second string from the first string if contained.Example usage -> "Hello" -= "ello" will result in -> "H"!
+    
+    const char* substr = other.getData();
+    size_t subLen = std::strlen(substr);
+    size_t indexOrig = 0, indexRem = 0;
+    while (indexOrig < length) {
+        if (data[indexOrig] == substr[indexRem]) {
+            indexOrig++;
+            indexRem++;
+            if (indexRem == subLen) {
+                for (size_t k = indexOrig - indexRem; k < length - subLen; k++) {
+                    this->data[k] = this->data[k + subLen];
+                }
+                this->length -= subLen;
+                this->data[length] = '\0';
+                return *this;
+            }
+        } else {
+            indexOrig++;
+            indexRem = 0;
+        }
+    }
+    return *this;
+    
+}
+
+
+Istring operator-(const Istring& lhs,const Istring& rhs){
+    Istring copy(lhs);
+    copy-=rhs;
+    
+    return copy;
+}
+   
+
+
+
