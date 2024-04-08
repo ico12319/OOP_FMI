@@ -176,10 +176,23 @@ bool operator!=(const Polynomial& lhs, const Polynomial& rhs){
     return !(lhs==rhs);
 }
 
+Polynomial determineHigherDegreePolynom(const Polynomial& lhs,const Polynomial& rhs){
+    
+    if(lhs.getPower() > rhs.getPower()){
+        return lhs;
+    }
+    
+    return rhs;
+}
+
+
 Polynomial operator+(const Polynomial& lhs, const Polynomial& rhs){
     
-    Polynomial toReturn(lhs);
-    toReturn += rhs;
+    Polynomial higherDegreePoly = determineHigherDegreePolynom(lhs, rhs);
+    Polynomial lowerDegreePoly = (higherDegreePoly == lhs) ? rhs : lhs;
+    
+    Polynomial toReturn(higherDegreePoly);
+    toReturn += lowerDegreePoly;
     
     return toReturn;
     
