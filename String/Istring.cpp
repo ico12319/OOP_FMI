@@ -2,13 +2,13 @@
 #include "Istring.h"
 #include <cstring>
 
+#pragma warning (disable : 4996)
 
 size_t Istring::getLength() const{
     return this->length;
 }
 
-
-const char* Istring::getData() const{
+const char* Istring::c_str() const{
     return this->data;
 }
 
@@ -18,13 +18,20 @@ void Istring::copy(const Istring& other){
     std::strcpy(this->data,other.data);
     
     this->length = other.length;
-    
 }
 
 void Istring::destroy(){
     delete[] this->data;
-    
+    this->data = nullptr;
     this->length = 0;
+}
+
+Istring::Istring(size_t size) : length(size) {
+	data = new char[size + 1];
+}
+
+Istring::Istring() : Istring((size_t)0) {
+	data[0] = '\0';
 }
 
 Istring& Istring::operator=(const Istring& other){
@@ -40,15 +47,17 @@ Istring::Istring(const Istring& other){
     copy(other);
 }
 
-
 Istring::~Istring(){
     destroy();
 }
 
 void Istring::setData(const char* data){
-    
-    if(!data || this->data == data){
-        return;
+    if (!data) {
+	    delete[] data;
+	    this->data = new char[1];
+	    this->data[0] = '\0';
+
+	    return;
     }
     
     delete[] this->data;
@@ -58,23 +67,16 @@ void Istring::setData(const char* data){
     std::strcpy(this->data, data);
 }
 
-
-
-
 void Istring::reverse(){
     
-    
-    for(int i = 0;i<length/2;i++){
+    for(int i = 0; i < length / 2; i++){
         std::swap(this->data[i],this->data[length - i -1]);
-    }
-    
-    
+    } 
 }
 
 Istring::Istring(const char* data){
     setData(data);
 }
-
 
 const char& Istring::operator[](int index) const{
     return this->data[index];
@@ -97,18 +99,27 @@ Istring& Istring::operator+=(const Istring& other){
     this->data = newStr;
     this->length = newLen;
     
-    return * this;
-    
+    return *this;
 }
-
 
 std::ostream& operator<<(std::ostream& os,const Istring& str){
     
-    for(int i = 0;i<str.length;i++){
-        os<<str[i];
-    }
-    return os;
-    
+    os << str.data;    
+    // another way if the operator is not a friend function : os << str.c_str(); 
+
+    return os;    
+}
+
+std::istream& operator>>(std::istream& is, Istring& str) {
+	char buffer[BUFFER_SIZE];
+	is.getline(buffer, BUFFER_SIZE);
+
+	str.length = strlen(buffer);
+	delete[] str.data;
+	str.data = new char[str.length + 1];
+	strcpy(str.data, buffer);
+
+	return is;
 }
 
 Istring operator+(const Istring& lhs,const Istring& rhs){
@@ -132,13 +143,11 @@ bool operator==(const Istring& lhs,const Istring& rhs){
     }
     
     return true;
-    
 }
 
 bool operator!=(const Istring& lhs,const Istring& rhs){
     return !(lhs==rhs);
 }
-
 
 bool Istring::isPalindrome() const{
     Istring reversed(*this);
@@ -146,11 +155,9 @@ bool Istring::isPalindrome() const{
     reversed.reverse();
     
     return (*this==reversed);
-    
 }
 
 Istring& Istring::operator()(int replicateCount){
-    
     
     int ind = 0;
     size_t newSize = replicateCount * length;
@@ -171,5 +178,4 @@ Istring& Istring::operator()(int replicateCount){
     this->length = newSize;
     
     return *this;
-    
 }
