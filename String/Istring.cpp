@@ -24,11 +24,11 @@ void Istring::destroy(){
     this->length = 0;
 }
 
-Istring::Istring(size_t size) : length(size) {
+Istring::Istring(size_t size) : length(size) { //constructor which allocates memory.
 	data = new char[size + 1];
 }
 
-Istring::Istring() : Istring((size_t)0) {
+Istring::Istring() : Istring((size_t)0) { //Done becuase of Istring str1;
 	data[0] = '\0';
 }
 
@@ -112,10 +112,10 @@ std::istream& operator>>(std::istream& is, Istring& str) {
 	char buffer[BUFFER_SIZE];
 	is.getline(buffer, BUFFER_SIZE);
 
-	str.length = strlen(buffer);
+	str.length = std::strlen(buffer);
 	delete[] str.data;
 	str.data = new char[str.length + 1];
-	strcpy(str.data, buffer);
+	std::strcpy(str.data, buffer);
 
 	return is;
 }
