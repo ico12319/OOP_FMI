@@ -3,7 +3,6 @@
 #include <iostream>
 #include <exception>
 
-// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
 
 
 uint16_t ModifiableIntegerFunction::getIndex(int16_t num) const {
