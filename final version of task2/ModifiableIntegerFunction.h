@@ -2,7 +2,6 @@
 #include <fstream>
 #include "ExcludedPoints.h"
 
-// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
 
 constexpr unsigned SIZE = UINT16_MAX; //65....
 constexpr int START = INT16_MIN; // -32767
