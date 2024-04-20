@@ -1,5 +1,4 @@
 #include <iostream>
-// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
 class ExcludedPoints {
 private:
     void copyFrom(const ExcludedPoints&);
