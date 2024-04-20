@@ -2,6 +2,8 @@
 #include <fstream>
 #include "ExcludedPoints.h"
 
+// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
+
 constexpr unsigned SIZE = UINT16_MAX; //65....
 constexpr int START = INT16_MIN; // -32767
 constexpr unsigned END = INT16_MAX; // 32768
@@ -12,21 +14,20 @@ private:
     int16_t* modificatedResults;
     ExcludedPoints excludedPoints;
 
-    void copyFrom(const ModifiableIntegerFunction&);
+    void copyFrom(const ModifiableIntegerFunction& other);
     void free();
 
     static int16_t id(int16_t x);
     
     
 public:
-    // Rule of four:
+
     ModifiableIntegerFunction();
     ModifiableIntegerFunction(int16_t(*base) (int16_t));
-    ModifiableIntegerFunction(const ModifiableIntegerFunction&);
-    ModifiableIntegerFunction& operator=(const ModifiableIntegerFunction&);
+    ModifiableIntegerFunction(const ModifiableIntegerFunction& other);
+    ModifiableIntegerFunction& operator=(const ModifiableIntegerFunction& other);
     ~ModifiableIntegerFunction();
 
-    // Functionality:
     void setResult(int16_t value, int16_t result);
     void excludePoint(int16_t value);
 
@@ -35,12 +36,13 @@ public:
     bool isInjective() const;
     bool isSurjective() const;
     bool isBijective() const;
-    uint16_t getIndex(int16_t) const;
-    void changeResult(int16_t, int16_t);
+    uint16_t getIndex(int16_t num) const;
+    void changeResult(int16_t num, int16_t newValue);
     void print() const;
     void printGraph(int x1, int x2, int y1, int y2)const;
+    void serialize(std::ofstream& ofs) const;
+    void deserialize(std::ifstream& ifs);
 
-    // Operators:
     ModifiableIntegerFunction& operator+=(const ModifiableIntegerFunction& other);
     ModifiableIntegerFunction& operator-=(const ModifiableIntegerFunction& other);
     int16_t operator()(int16_t value) const;

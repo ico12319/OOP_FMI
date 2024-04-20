@@ -3,6 +3,9 @@
 #include <iostream>
 #include <exception>
 
+// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
+
+
 uint16_t ModifiableIntegerFunction::getIndex(int16_t num) const {
     return END + num;
 }
@@ -137,8 +140,8 @@ ModifiableIntegerFunction operator*(const ModifiableIntegerFunction& lhs, const 
     
     
     ModifiableIntegerFunction res(lhs);
-
-    for (size_t i = 0; i < SIZE; i++) {
+    
+    for (int i = 0; i < SIZE; i++) {
         int16_t lhsResult = lhs(rhs(i));
         res.setResult(i, lhsResult);
     }
@@ -208,6 +211,9 @@ ModifiableIntegerFunction operator-(const ModifiableIntegerFunction& lhs, const 
 bool ModifiableIntegerFunction::isInjective() const {
     for (size_t i = 0; i < SIZE; i++) {
         for (size_t j = i + 1; j < SIZE; j++){
+            if((*this).excludedPoints.isExcluded(i) || (*this).excludedPoints.isExcluded(j)){
+                continue;
+            }
             if((*this)(i) == (*this)(j)){
                 return false;
             }
@@ -230,7 +236,6 @@ bool ModifiableIntegerFunction::isBijective() const {
     return isInjective() && isSurjective();
 }
 
-// too complex????
 bool operator>(const ModifiableIntegerFunction& lhs, const ModifiableIntegerFunction& rhs) {
     return !(lhs < rhs) && lhs != rhs;
 }
@@ -254,6 +259,17 @@ bool operator<=(const ModifiableIntegerFunction& lhs, const ModifiableIntegerFun
 bool operator==(const ModifiableIntegerFunction& lhs, const ModifiableIntegerFunction& rhs) {
 
     for (int i = 0; i < SIZE; i++) {
+        if(lhs.excludedPoints.isExcluded(i) && !rhs.excludedPoints.isExcluded(i)){
+            return false;
+        }
+        else if(!lhs.excludedPoints.isExcluded(i) && rhs.excludedPoints.isExcluded(i)){
+            return false;
+        }
+        else if(!lhs.excludedPoints.isExcluded(i) && !rhs.excludedPoints.isExcluded(i)){
+            continue;
+        }
+        
+        
         if (lhs(i) != rhs(i))
             return false;
     }
@@ -282,3 +298,18 @@ void ModifiableIntegerFunction::printGraph(int x1, int x2, int y1, int y2) const
     
 }
 
+
+
+void ModifiableIntegerFunction::serialize(std::ofstream& ofs) const{
+    
+    ofs.write((const char*)(modificatedResults), SIZE * sizeof(int16_t));
+    excludedPoints.serialize(ofs);
+}
+
+void ModifiableIntegerFunction::deserialize(std::ifstream& ifs){
+    
+    delete[] modificatedResults;
+    modificatedResults = new int16_t[SIZE];
+    ifs.read((char*)(modificatedResults), SIZE * sizeof(int16_t));
+    excludedPoints.deserialize(ifs);
+}

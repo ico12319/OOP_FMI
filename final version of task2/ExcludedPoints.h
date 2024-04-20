@@ -1,5 +1,5 @@
 #include <iostream>
-
+// done with the help of Михаел Михайлов -> 0MI0700220, Виктор Миланов -> 0MI0700270, Жоземир Кушев -> 8MI0700284, Димитър Цонев -> 72087
 class ExcludedPoints {
 private:
     void copyFrom(const ExcludedPoints&);
@@ -10,19 +10,19 @@ private:
     uint16_t capacity;
     uint16_t size;
     
+    
 public:
     ExcludedPoints();
     ExcludedPoints(const ExcludedPoints&);
     ExcludedPoints& operator=(const ExcludedPoints&);
     ~ExcludedPoints();
 
-    // Functionality:
     bool isExcluded(int16_t) const;
     unsigned getSize() const;
     void excludePoint(int16_t);
 
-    // Operators:
-    friend std::ostream& operator<<(std::ostream& os, const ExcludedPoints& obj);
-    friend std::istream& operator>>(std::istream& is, ExcludedPoints& obj);
+    
+    void serialize(std::ofstream& ofs) const;
+    void deserialize(std::ifstream& ifs);
     
 };

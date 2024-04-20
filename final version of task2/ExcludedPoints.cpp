@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include "ExcludedPoints.h"
+#include <fstream>
 
 
 ExcludedPoints::ExcludedPoints() : capacity(8), size(0) {
@@ -76,18 +77,24 @@ void ExcludedPoints::resize(unsigned newCap) {
     excludedPoints = arr;
 }
 
-std::ostream& operator<<(std::ostream& os, const ExcludedPoints& obj) {
-    os.write((const char*)(&obj.size), sizeof(obj.size));
-    os.write((const char*)(obj.excludedPoints), obj.size * sizeof(int16_t));
 
-    return os;
+
+void ExcludedPoints::serialize(std::ofstream& ofs) const{
+    ofs.write((const char*)(&size), sizeof(size));
+    ofs.write((const char*)(excludedPoints), size * sizeof(int16_t));
 }
 
-std::istream& operator>>(std::istream& is, ExcludedPoints& obj) {
-    is.read((char*)(&obj.size), sizeof(obj.size));
-    obj.capacity = 2 * obj.size;
-    obj.excludedPoints = new int16_t[obj.capacity]{};
-    is.read((char*)(obj.excludedPoints), obj.size * sizeof(int16_t));
-
-    return is;
+void ExcludedPoints::deserialize(std::ifstream& ifs){
+    
+    
+    ifs.read((char*)(&size), sizeof(size));
+    
+    
+    capacity = 2 * size;
+    delete[] excludedPoints;
+    
+    excludedPoints = new int16_t[capacity];
+    ifs.read((char*)(excludedPoints), size * sizeof(uint16_t));
 }
+
+

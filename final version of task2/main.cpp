@@ -49,7 +49,6 @@ int main() {
     //ModifiableIntegerFunction func3 = func1 - func2; // (5+2) - (5^2) = 7 - 25 = - 18
     //std::cout<<func3(5)<<std::endl;
     
-    
     //std::cout<<func1.isSurjective()<<std::endl; // should return true
     //std::cout<<func1.isInjective()<<std::endl; // should retun false
     //std::cout<<func1.isBijective()<<std::endl; // should return false
@@ -82,7 +81,7 @@ int main() {
     //std::cout<<func21(3)<<std::endl; // should return 9
     
     
-    //ModifiableIntegerFunction func6(nor); // the arr is too big and the searching algorithm is trash be ready to wait (10-12 seconds) before seeing the result
+    //ModifiableIntegerFunction func6(nor); // the arr is too big and the searching algorithm is not optimal so be ready to wait (10-12 seconds) before seeing the result
     //std::cout<<func6.isSurjective()<<std::endl;;//should return true
     //std::cout<<func6.isInjective()<<std::endl; // should return true
     //std::cout<<func6.isBijective()<<std::endl; //shold return true
