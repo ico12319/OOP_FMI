@@ -46,9 +46,10 @@ int StringPool::findRecord(const char* str) const{
     
 }
 
-void StringPool::removeRecord(unsigned index){
-    std::swap(records[stringCount - 1],records[index]);
-    delete[] records[stringCount - 1].str;
+void SortedStringPool::removeRecord(size_t index){
+    for(int i = index;i<stringCount - 1;i++){
+        records[i] = records[i + 1];
+    }
 }
 
 
@@ -84,11 +85,11 @@ const char* StringPool::getAllocatedString(const char* str){
 
 
 
-void StringPool::releaseString(const char* str){
-    
+void SortedStringPool::releaseString(const char* str){
     int index = findRecord(str);
     
-    if(records[index].refCount == 1){
+    if(records[index] .refCount == 1){
+        delete[] records[index].str;
         removeRecord(index);
         stringCount--;
     }
@@ -96,4 +97,3 @@ void StringPool::releaseString(const char* str){
         records[index].refCount--;
     }
 }
-
