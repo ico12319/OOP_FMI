@@ -94,10 +94,18 @@ Output GameFactory::determineWinnerBetweenTwo(Type* lhs,Type* rhs){
 }
 
 Type* GameFactory::getPlayer(size_t index) const{
+    if(index >= size)
+        throw std::invalid_argument("Out of bounds!");
     return data[index];
 }
 
 void GameFactory::remove(size_t index){
+    
+    if(index >= size)
+        throw std::invalid_argument("Invalid index!");
+    
+    delete data[index];
+    data[index] = nullptr;
     for(size_t i = index;i<size - 1;i++){
         data[i] = data[i+1];
     }
@@ -106,18 +114,23 @@ void GameFactory::remove(size_t index){
 
 
 Type* GameFactory::determineWinner() {
-    int index1 = 0;
-    int index2 = 1;
-    while(size > 1){
-        Output output = determineWinnerBetweenTwo(data[index1], data[index2]);
-        if (output == Output::DRAW || output == Output::LOSS) {
-                    remove(index2); // Remove the loser
-                } else if (output == Output::WIN) {
-                    remove(index1); // Remove the loser
-                    index2--; // Adjust index2 to account for removal
-                }
-                index1 = 0; // Reset index1 to 0 after each iteration
-                index2 = 1; // Reset index2 to 1 after each iteration
+    while (size > 1) {
+        Output output = determineWinnerBetweenTwo(data[0], data[1]);
+        if (output == Output::DRAW || output == Output::WIN){
+            try{
+                remove(1);
             }
-            return data[0];
+            catch(const std::exception& e){
+                std::cout<<e.what()<<std::endl;
+            }
+        }
+        else if (output == Output::LOSS)
+            try{
+                remove(0);
+            }
+            catch(const std::exception& e){
+                std::cout<<e.what()<<std::endl;
+            }
+    }
+    return data[0];
 }

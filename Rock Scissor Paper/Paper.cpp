@@ -23,5 +23,5 @@ Type* Paper::clone() const{
 
 
 void Paper::print() const{
-    std::cout<<"The winner is paper!"<<std::endl;
+    std::cout<<"The winner is Paper!"<<std::endl;
 }

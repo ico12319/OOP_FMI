@@ -12,7 +12,6 @@ private:
     void copy(const GameFactory& other);
     void destroy();
     void remove(size_t index);
-    
     static Output determineWinnerBetweenTwo(Type* lhs, Type* rhs);
     
 public:
@@ -25,10 +24,7 @@ public:
     
     void addPlayer(Type* type);
     void addPlayer(const Type& other);
-    
     Type* getPlayer(size_t index) const;
-    
-    
     Type* determineWinner();
     
     

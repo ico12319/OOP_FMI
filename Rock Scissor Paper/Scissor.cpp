@@ -23,5 +23,5 @@ Type* Scissor::clone() const{
 }
 
 void Scissor::print() const{
-    std::cout<<"The winner is scissor!"<<std::endl;
+    std::cout<<"The winner is Scissor!"<<std::endl;
 }
