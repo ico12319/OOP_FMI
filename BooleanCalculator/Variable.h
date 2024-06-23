@@ -1,6 +1,5 @@
 #include "Expression.h"
 
-
 class Variable : public Expression{
     
 private:

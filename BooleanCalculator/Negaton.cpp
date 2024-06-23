@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "Negation.h"
 
-Negation::Negation(const Expression* expr) : UnaryOperation(expr){}
+
+Negation::Negation(Expression* expr) : UnaryExpression(expr){}
 
 bool Negation::eval(const BooleanInterpretation& interp) const{
     return !expr->eval(interp);
@@ -10,5 +11,4 @@ bool Negation::eval(const BooleanInterpretation& interp) const{
 Expression* Negation::clone() const{
     return new Negation(expr->clone());
 }
-
 
