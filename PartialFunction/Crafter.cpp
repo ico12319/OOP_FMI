@@ -22,6 +22,8 @@ PartialFunction* crafter(std::ifstream& ifs){
         ifs.read(reinterpret_cast<char*>(results),N * sizeof(int32_t));
         Type0 func(points,N,results);
         PartialFunction* toReturn = new PartialFunctionByCriteria<Type0>(func);
+        delete[]points;
+        delete[]results;
         return toReturn;
     }
     else if(T == 1){
@@ -29,6 +31,7 @@ PartialFunction* crafter(std::ifstream& ifs){
         ifs.read(reinterpret_cast<char*>(points),N * sizeof(int32_t));
         Type1 func(points, N);
         PartialFunction* toReturn = new PartialFunctionByCriteria<Type1>(func);
+        delete[]points;
         return toReturn;
     }
     else if(T == 2){
@@ -36,6 +39,7 @@ PartialFunction* crafter(std::ifstream& ifs){
         ifs.read(reinterpret_cast<char*>(points), N * sizeof(int32_t));
         Type2 func(points, N);
         PartialFunction* toReturn = new PartialFunctionByCriteria<Type2>(func);
+        delete[]points;
         return toReturn;
     }
     else if(T == 3){
