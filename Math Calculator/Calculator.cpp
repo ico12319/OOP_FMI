@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include "Calculator.h"
+#include "Number.h"
+#include "Plus.h"
+#include "Minus.h"
+#include "Division.h"
+#include "Multiplier.h"
 
 
 Expression* calculator(std::string_view str){

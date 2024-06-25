@@ -6,7 +6,7 @@ int main(int argc, const char * argv[]) {
     MathCalculator calculator2("((2)+(1))");
     
     
-    std::cout<<calculator2.evaluate()<<std::endl;
+    std::cout<<calculator.evaluate()<<std::endl;
     
     
     

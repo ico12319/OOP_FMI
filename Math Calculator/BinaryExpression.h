@@ -1,4 +1,5 @@
-#include "Number.h"
+#pragma once
+#include "Expression.h"
 
 
 class BinaryExpression : public Expression{

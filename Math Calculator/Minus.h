@@ -1,4 +1,5 @@
-#include "Plus.h"
+#pragma once
+#include "BinaryExpression.h"
 
 
 class Minus : public BinaryExpression{

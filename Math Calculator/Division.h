@@ -1,4 +1,5 @@
-#include "Multiplier.h"
+#pragma once
+#include "BinaryExpression.h"
 
 
 class Division : public BinaryExpression{

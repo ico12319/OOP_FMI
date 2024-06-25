@@ -1,4 +1,5 @@
-#include "Minus.h"
+#pragma once
+#include "BinaryExpression.h"
 
 
 class Multiplier : public BinaryExpression{
